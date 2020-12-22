@@ -1,0 +1,30 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+html {
+  font-size: 12px;
+}
+
+.content {
+  width: 60%;
+  margin: 0 auto;
+}
+.negative-income {
+  color: green;
+}
+.positive-income {
+  color: red;
+}
+.income-rate {
+  display: inline-block;
+  width: 80px;
+  text-align: right;
+}
+.fund-name {
+  padding-left: 20px;
+}
+.list-header {
+  margin: 20px 0 0 0;
+  font-weight: 600;
+}
