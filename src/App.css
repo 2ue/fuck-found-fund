@@ -28,3 +28,8 @@ html {
   margin: 20px 0 0 0;
   font-weight: 600;
 }
+.have-tag {
+  display: inline-block;
+  width: 30px;
+  color: red;
+}

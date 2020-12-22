@@ -56,13 +56,16 @@ class funDataComponent extends React.Component {
             let JZQRSY = '';
             // 确认持仓收益
             let CCSY = '';
+            // 是否持仓
+            let isHave = false;
 
             if (currentInvote) {
                 const { FCCFE, FCCCB } = currentInvote;
                 const { NAV, NAVCHGRT, GSZ, GSZZL, PDATE } = fund;
                 
+                isHave = true;
                 // 说明今天的净值已经更新
-                if (refreshTime.indexOf(PDATE) === 0) {
+                if (refreshTime.indexOf(PDATE) === 0 && Number(NAVCHGRT) && Number(NAV)) {
                     JZQRSY = mathjs.round(NAVCHGRT * NAV * FCCFE / 100, 2);
                 }
                 JZGSSY = mathjs.round(GSZ * GSZZL * FCCFE / 100, 2);
@@ -76,7 +79,8 @@ class funDataComponent extends React.Component {
                 ...fund,
                 JZGSSY,
                 JZQRSY,
-                CCSY
+                CCSY,
+                isHave
             }
         });
         obj.JZQRZSY = mathjs.round(obj.JZQRZSY, 2);
