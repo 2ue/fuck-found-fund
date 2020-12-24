@@ -28,7 +28,7 @@ function FundList(props) {
                         {getIncome(fund.JZGSSY)} |
                         {getIncome(fund.JZQRSY)} |
                         <span className="fund-name">
-                            <label className="have-tag">{fund.isHave ? '持仓' : ''}</label>
+                            <label className="have-tag">{fund.isHave ? '持有' : ''}</label>
                             {fund.SHORTNAME}({fund.FCODE})
                         </span>
                     </p>

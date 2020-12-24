@@ -36,6 +36,19 @@ export default class FundUtils {
         });
     }
 
+    getFundTest() {
+        return this.axios({
+            url: 'https://api.doctorxiong.club/v1/fund/rank',
+            // url: 'http://fundgz.1234567.com.cn/js/001186.js?rt=1463558676006',
+            method: 'post',
+            data: {
+                pageSize: 100
+            }
+        }).then(res => {
+            console.log('333', res);
+        })
+    }
+
     /**
      * 
      * 获取基金实时数据
@@ -58,9 +71,10 @@ export default class FundUtils {
         });
     }
 
-    getFundLastData(config) {
-        return axios(config);
-    }
+    /**
+     * 获取基金历史净值
+     * @param {String|Number} code 基金代码
+     */
     getFundData(code) {
         return this.axios({
             ...this.config,
@@ -79,6 +93,10 @@ export default class FundUtils {
             }
         })
     }
+    /**
+     * 批量获取基金实时数据
+     * @param {Array} codes 基金代码
+     */
     getFundListData(codes) {
         return this.axios({
             ...this.config,

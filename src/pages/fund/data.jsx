@@ -112,6 +112,7 @@ class funDataComponent extends React.Component {
 
     componentDidMount() {
         this.utils = new FundUtils();
+        this.utils.getFundTest();
         this.setTimer();
     }
 

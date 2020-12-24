@@ -1,7 +1,6 @@
 /**
  * 基金数据
  */
-
 const fundCodes = [
     '001679',
     '320007',
@@ -27,11 +26,11 @@ const fundCodes = [
     '001694',
     '163406'
 ];
+
 /**
  * FCCFE: 持仓份额
  * FCCCB: 持仓成本
  */
-
 const fundInvote = {
     '000478': {
         FCCFE: 2359.50,
@@ -42,7 +41,7 @@ const fundInvote = {
         FCCCB: 10300
     },
     '161028': {
-        FCCFE: 10613.24,
+        FCCFE: 15923.42,
         FCCCB: 12000
     },
     '001102': {
