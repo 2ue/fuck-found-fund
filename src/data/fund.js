@@ -1,7 +1,7 @@
 /**
  * 基金数据
  */
-const fundCodes = [
+export const fundCodes = [
     '001679',
     '320007',
     '001102',
@@ -28,10 +28,11 @@ const fundCodes = [
 ];
 
 /**
+ * 持仓数据
  * FCCFE: 持仓份额
  * FCCCB: 持仓成本
  */
-const fundInvote = {
+export const fundInvote = {
     '000478': {
         FCCFE: 2359.50,
         FCCCB: 5421.5
@@ -111,11 +112,5 @@ const fundInvote = {
     '519727': {
         FCCFE: 2864.02,
         FCCCB: 6979.62 - 762.02
-    }
-};
-
-export default {
-    baseURL: 'https://fundmobapi.eastmoney.com/',
-    fundCodes,
-    fundInvote
+    },
 };
