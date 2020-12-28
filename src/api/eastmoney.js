@@ -4,6 +4,7 @@
 
 import axios from '../utils/axios';
 import { fundCodes } from '../data/fund';
+import { re } from 'mathjs';
 
 function https(config) {
     return axios({
@@ -74,3 +75,22 @@ export function getFundList(codes) {
         }
     })
 }
+
+export function getFunHistoryPrice() {
+    return https({
+        url: 'http://api.fund.eastmoney.com/f10/lsjz',
+        params: {
+            callback: 'jQuery183007463799119798509_1609123464486',
+            fundCode: '002190',
+            pageIndex: 3,
+            pageSize: 20,
+            startDate: '',
+            endDate: '',
+            _: 1609123716901
+        }
+    })
+}
+
+getFunHistoryPrice().then(res => {
+    console.log(res);
+})
