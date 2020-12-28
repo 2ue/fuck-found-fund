@@ -6,7 +6,7 @@
  * 本金恒定策略：
  * 1.设定恒定本金金额
  * 2.设置卖出收益率和最小时间间隔
- * 3.设置买入亏损率和最小时间问题
+ * 3.设置买进亏损率和最小时间问题
  * 思考：
  * 可以通过设置以上参数，适应不同市场？
  * 是否可以设置多个目标
@@ -22,15 +22,15 @@ const constantInvote = 10000;
 // 目标收益和最小时间，用于卖出保持本金恒定
 const targetIncome = 0.20;
 const invoteMinTime = 7;
-// 目标亏损率和最小时间，用于买入保持本金恒定
+// 目标亏损率和最小时间，用于买进保持本金恒定
 const targetDeficit = -0.1;
 const deficitMinTime = 15;
 
 const opEnums = {
     sell: '卖出(手动)',
-    buy: '买入(手动)',
+    buy: '买进(手动)',
     autoSell: '卖出(自动)',
-    autoBuy: '买入(自动)',
+    autoBuy: '买进(自动)',
     clear: '清仓'
 }
 
@@ -55,10 +55,10 @@ class TradingModel {
         // 初始本金
         this.invote = options.invote || constantInvote;
         // 持仓金额
-        this.nowInvote = this.invote;
+        this.postionInvote = this.invote;
         // 持仓本金：随着盈利止盈，投入本金越来越少
         this.inInvote = this.invote;
-        // 总共投入本金：随着不断买入，投入本金越来越多
+        // 总共投入本金：随着不断买进，投入本金越来越多
         this.totalInvote = this.invote;
         // 初始单价
         this.price = 0;
@@ -92,6 +92,159 @@ class TradingModel {
             standard: this.constantInvote
         }
     }
+    /**
+     * 初始化：
+     * 1.初始化配置
+     * 1.建仓
+     */
+    init(data, options) {
+        this.data = data;
+
+        this.prop = {
+            price: 'price',
+            time: 'time'
+        };
+
+        // 基金信息
+        // 基金名称，CODE等
+        this.fund = this.options.fund;
+
+        // 建仓时间
+        this.startTime = '';
+
+        // invote: 投入本金
+        // 初始投入本金：不会发生改变
+        this.startInvote = 0;
+        // 累计投入本金：整个过程中最大需要投入的现金
+        // 累计每次买进的金额（包括建仓）
+        this.totalInvote = 0;
+        // 累计净投入本金：整个过程中最小需要投入的现金
+        // 利用卖出产生的正收益，进行下一次买进（理论上不抵扣上一次的买进），抵扣部分不计入累计投入本金
+        this.netInvote = 0;
+        // 持仓包含的本金：随着卖出和买进，持仓中的本金会发生变化
+        this.postionInvote = 0;
+
+        // 初始买进的净值：不会发生改变
+        this.startPrice = 0;
+        // 市净值：当前基金的确认净值
+        this.marketPrice = 0;
+        // 持仓成本价: 只当前持仓金额和当前份额的单价
+        // (marketValue(旧) + 买进或卖出金额) / (positionAmount + 买进(+)或卖出(-)的份额)
+        this.positionPrice = 0;
+
+        // amount: 份额
+        // 持仓份额: 原有份额 + 变动份额(买进：份额为+；卖出份额为-)
+        this.positionAmount = 0;
+
+        // 持仓市值(持仓金额): 持仓所有份额的价值
+        // positionAmount * positionPrice
+        this.positionValue = 0;
+
+        // income: 收益
+        // 累计收益：累计每一次卖出后的收益
+        this.totalIncome = 0;
+        // 累计净收益：除去盈利再投资的部分
+        this.netIncome = 0;
+
+        // 累计收益率: totalIncome / totalInvote
+        this.totalRate = 0;
+        // 累计净收益率: netIncome / netInvote
+        this.netRate = 0;
+
+        // 策略参数
+        // 恒定本金：原则上初始建仓是一次性买入，如需分批买入
+        this.constantInvote = options.constantInvote || constantInvote;
+        // 目标收益和亏损率: 暂未考虑时间
+        this.targetIncome = options.targetIncome || targetIncome;
+        this.targetDeficit = options.targetDeficit || targetDeficit;
+
+        // TODO
+        // 卖出频次: 必须高于七天才能卖出，减少手续费
+        this.sellInterval = 7;
+
+        this.createPosition(options);
+    }
+
+    getFundData(data = {}) {
+        return {
+            price: data[this.prop.price],
+            time: data[this.prop.time]
+        };
+    }
+
+    // 建仓value
+    createPosition(value) {
+        let data = this.data[0];
+        if (isEmpty(fund)) {
+            console.log('无建仓数据');
+            return;
+        };
+        const {
+            price,
+            time
+        } = this.getFundData(fund);
+        this.startTime = time;
+        this.startPrice = price;
+        this.startInvote = value;
+        this.buy(data, value);
+    }
+
+    /**
+     * 买入
+     * 
+     * 需要更新
+     * 持仓包含的本金：postionInvote
+     * 累计投入本金：totalInvote
+     * 累计净投入本金：netInvote
+     * 
+     * 市净值: marketPrice
+     * 持仓成本单价：positionPrice
+     * 持仓份额：positionAmount
+     * 持仓市值(持仓金额): postionValue
+     * 
+     * 累计净收益：netIncom
+     * 累计总收益率：totalRate
+     * 累计净收益率：netRate
+     * 
+     * @param {Object} data: 买入信息
+     * @param {Number} value: 买入金额
+     */
+    buy(data, value) {
+        const {
+            price,
+            time
+        } = this.getFundData(fund);
+        this.updateNetValue(value);
+    }
+
+    updateTotalInvote(value) {
+        this.totalInvote = count(this.totalInvote + value);
+    }
+    updateTotalIncome(value) {
+        this.totalIncome = count(this.totalIncome + value);
+    }
+
+    updateNetValue(value) {
+        const changeValue = count(this.netIncome - value);
+
+        if (changeValue >= 0) {// 本次买入，全部从累计净收益扣除
+            this.netIncome = changeValue;
+        } else {
+            this.netIncome = 0;
+            this.netInvote = count(this.netInvote - value);
+            this.postionInvote = count(this.postionInvote + this.netInvote);
+        };
+        this.netRate = count(this.netIncome / this.netInvote);
+    }
+
+    // TODO
+    updatePostionInvote(value, type = 'autoBuy') {
+        if (type === 'autoBuy') {
+            this.postionInvote = count(this.postionInvote + value);
+        }
+    }
+
+    // --------------------------------OLD---------------------------------------
 
     /**
      * 1.计算数据
@@ -139,7 +292,7 @@ class TradingModel {
             changeAmout,
             income: changeMoney,
             changeInvote: changeMoney,
-            nowInvote: count(this.nowInvote - changeMoney),
+            postionInvote: count(this.postionInvote - changeMoney),
             prePrice: this.nowPrice,
             // nowPrice: count((this.nowPrice * this.nowAmount - changeMoney) / (this.nowAmount - changeAmout), 4),
             nowPrice: count((standard - changeMoney) / (this.nowAmount - changeAmout), 4)
@@ -222,7 +375,7 @@ class TradingModel {
             基金: this.fundCode,
             恒定持仓金额: this.constantInvote,
             止盈点设置: this.targetIncome,
-            买入点设置: this.targetDeficit,
+            买进点设置: this.targetDeficit,
             初始投入: this.invote,
             总投入: this.totalInvote,
             总盈利: totalIncome,
@@ -236,7 +389,7 @@ class TradingModel {
         this.pushRecord('autoSell', data);
     }
 
-    // 买入
+    // 买进
     buy(data) {
         this.updateData(data);
         // this.totalInvote = count(this.totalInvote - data.changeMoney);
@@ -287,6 +440,7 @@ class TradingModel {
 
 const csv = require('csvtojson');
 const path = require('path');
+const { isEmpty } = require('lodash');
 
 function run(code) {
     csv()
