@@ -4,7 +4,6 @@
 
 import axios from '../utils/axios';
 import { fundCodes } from '../data/fund';
-import { re } from 'mathjs';
 
 function https(config) {
     return axios({
