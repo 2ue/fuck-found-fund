@@ -27,11 +27,11 @@ class funDataComponent extends React.Component {
      * 
      */
     async getFundListData() {
-        console.log('gettt')
         const refreshTime = dayjs().format('YYYY-MM-DD HH:mm:ss');
-        // 不在开市时间不刷新
-        const isCloseMarket = dayjs(closeMarketTime).isAfter(refreshTime) || dayjs(refreshTime).isAfter(openMarketTime);
+        // 是否开市
+        const isCloseMarket = dayjs(refreshTime).isAfter(closeMarketTime) || dayjs(openMarketTime).isAfter(refreshTime);
         
+        // 不在开市时间不刷新
         if (this.timer && isCloseMarket) {
             this.clearTimer();
             return;
