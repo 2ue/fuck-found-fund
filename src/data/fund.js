@@ -1,5 +1,5 @@
 /**
- * 基金数据
+ * 需要展示的基金列表CODE
  */
 export const fundCodes = [
     '001679',
