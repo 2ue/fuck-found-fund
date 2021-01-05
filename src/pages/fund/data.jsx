@@ -64,6 +64,7 @@ class funDataComponent extends React.Component {
      * @param {Array} funds 基金实时信息
      * @param {Date|String} refreshTime 刷新基金的时间
      * 
+     * @returns {Number} ZRQRZSY 昨日确认总收益
      * @returns {Number} JRQRZSY 今日确认总收益
      * @returns {Number} JRGSZSY 今日估算总收益
      * @returns {Number} CCZSY 持仓收益
