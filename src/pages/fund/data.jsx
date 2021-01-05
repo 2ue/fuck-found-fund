@@ -40,16 +40,18 @@ class funDataComponent extends React.Component {
         const fundListData = await getFundList();
         const {
             list,
-            JZQRZSY,
-            JZGSZSY,
+            ZRQRZSY,
+            JRQRZSY,
+            JRGSZSY,
             CCZSY
         } = this.dealData(fundListData.Datas, refreshTime);
 
         this.setState({
             refreshTime,
             fundData: {
-                JZQRZSY,
-                JZGSZSY,
+                ZRQRZSY,
+                JRQRZSY,
+                JRGSZSY,
                 CCZSY
             },
             funListData: _.orderBy(list || [], 'GSZZL', 'desc')
@@ -62,25 +64,28 @@ class funDataComponent extends React.Component {
      * @param {Array} funds 基金实时信息
      * @param {Date|String} refreshTime 刷新基金的时间
      * 
-     * @returns {Number} JZQRZSY 今日确认总收益
-     * @returns {Number} JZGSZSY 今日估算总收益
+     * @returns {Number} JRQRZSY 今日确认总收益
+     * @returns {Number} JRGSZSY 今日估算总收益
      * @returns {Number} CCZSY 持仓收益
      * @returns {Array} list 基金数组
      */
     dealData(funds = [], refreshTime) {
         const obj = {
-            JZQRZSY: 0,
-            JZGSZSY: 0,
+            ZRQRZSY: 0,
+            JRQRZSY: 0,
+            JRGSZSY: 0,
             CCZSY: 0,
         }
         obj.list = funds.map(fund => {
             const currentInvote = fundInvote[fund.FCODE];
+            // 昨日确认总收益
+            let ZRQRZSY = 0;
             // 实时预估收益
-            let JZGSSY = '';
+            let JRGSSY = 0;
             // 今日确认收益
-            let JZQRSY = '';
+            let JRQRSY = 0;
             // 确认持仓收益
-            let CCSY = '';
+            let CCSY = 0;
             // 是否持仓
             let isHave = false;
 
@@ -91,25 +96,28 @@ class funDataComponent extends React.Component {
                 isHave = true;
                 // 说明今天的净值已经更新
                 if (refreshTime.indexOf(PDATE) === 0 && Number(NAVCHGRT) && Number(NAV)) {
-                    JZQRSY = mathjs.round(NAVCHGRT * NAV * FCCFE / 100, 2);
+                    JRQRSY = mathjs.round(NAVCHGRT * NAV * FCCFE / 100, 2);
+                } else {
+                    ZRQRZSY = mathjs.round(NAVCHGRT * NAV * FCCFE / 100, 2);
                 }
-                JZGSSY = mathjs.round(GSZ * GSZZL * FCCFE / 100, 2);
+                JRGSSY = mathjs.round(GSZ * GSZZL * FCCFE / 100, 2);
                 CCSY = mathjs.round(GSZ * FCCFE - FCCCB, 2);
-                obj.JZQRZSY += Number(JZQRSY);
-                obj.JZGSZSY += Number(JZGSSY);
+                obj.ZRQRZSY += Number(ZRQRZSY);
+                obj.JRQRZSY += Number(JRQRSY);
+                obj.JRGSZSY += Number(JRGSSY);
                 obj.CCZSY += Number(CCSY);
             }
 
             return {
                 ...fund,
-                JZGSSY,
-                JZQRSY,
+                JRGSSY,
+                JRQRSY,
                 CCSY,
                 isHave
             };
         });
-        obj.JZQRZSY = mathjs.round(obj.JZQRZSY, 2);
-        obj.JZGSZSY = mathjs.round(obj.JZGSZSY, 2);
+        obj.JRQRZSY = mathjs.round(obj.JRQRZSY, 2);
+        obj.JRGSZSY = mathjs.round(obj.JRGSZSY, 2);
         obj.CCZSY = mathjs.round(obj.CCZSY, 2);
         return obj;
     }
@@ -147,10 +155,11 @@ class funDataComponent extends React.Component {
             refreshTime,
         } = this.state;
         return <div>
-            <p className="update-time">时间：{refreshTime}</p>
+            <p className="update-time">更新时间：{refreshTime}</p>
             <p>持仓收益: {fundData.CCZSY}</p>
-            <p>今日确认总收益：{fundData.JZQRZSY}</p>
-            <p>今日预估总收益：{fundData.JZGSZSY}</p>
+            <p>昨日确认总收益：{fundData.ZRQRZSY}</p>
+            <p>今日确认总收益：{fundData.JRQRZSY}</p>
+            <p>今日预估总收益：{fundData.JRGSZSY}</p>
             <FundList funds={funListData}></FundList>
         </div>;
     }

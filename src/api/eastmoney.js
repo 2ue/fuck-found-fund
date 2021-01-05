@@ -89,7 +89,3 @@ export function getFunHistoryPrice() {
         }
     })
 }
-
-getFunHistoryPrice().then(res => {
-    console.log(res);
-})
