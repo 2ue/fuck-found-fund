@@ -54,7 +54,7 @@ class funDataComponent extends React.Component {
                 JRGSZSY,
                 CCZSY
             },
-            funListData: _.orderBy(list || [], 'GSZZL', 'desc')
+            funListData: _.orderBy(list || [], d => (Number(d.GSZZL) + 100000), 'desc')
         });
         this.setTimer();
     }
