@@ -117,6 +117,7 @@ class funDataComponent extends React.Component {
                 isHave
             };
         });
+        obj.ZRQRZSY = mathjs.round(obj.ZRQRZSY, 2);
         obj.JRQRZSY = mathjs.round(obj.JRQRZSY, 2);
         obj.JRGSZSY = mathjs.round(obj.JRGSZSY, 2);
         obj.CCZSY = mathjs.round(obj.CCZSY, 2);
