@@ -11,7 +11,7 @@ function getIncome(income, unit) {
 }
 
 function FundList(props) {
-    const { funds } = props;
+    const { funds, onlyShowHave } = props;
     return (
         <div>
             <div className="list-header">
@@ -21,7 +21,7 @@ function FundList(props) {
                 <span className="income-rate">今日确认收益</span> | 
                 </p>
             </div>
-            {funds.map(fund => {
+            {funds.filter(fund => !onlyShowHave || fund.isHave).map(fund => {
                 return <div className="" key={fund.FCODE}>
                     <p>
                         {getIncome(fund.GSZZL, '%')} | 

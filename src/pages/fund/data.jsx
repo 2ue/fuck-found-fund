@@ -18,6 +18,7 @@ class funDataComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            onlyShowHave: false,
             refreshTime: '',
             funListData: []
         };
@@ -150,11 +151,18 @@ class funDataComponent extends React.Component {
         this.clearTimer();
     }
 
+    changeShow() {
+        this.setState({
+            onlyShowHave: !this.state.onlyShowHave
+        });
+    }
+
     render() {
         const {
             funListData = [],
             fundData = {},
             refreshTime,
+            onlyShowHave
         } = this.state;
         return <div>
             <p className="update-time">更新时间：{refreshTime}</p>
@@ -162,7 +170,8 @@ class funDataComponent extends React.Component {
             <p>昨日确认总收益：{fundData.ZRQRZSY}</p>
             <p>今日确认总收益：{fundData.JRQRZSY}</p>
             <p>今日预估总收益：{fundData.JRGSZSY}</p>
-            <FundList funds={funListData}></FundList>
+            <button onClick={ this.changeShow.bind(this) }>隐藏未持有</button>
+            <FundList funds={funListData} onlyShowHave={onlyShowHave}></FundList>
         </div>;
     }
 }
