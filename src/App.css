@@ -1,14 +1,5 @@
-* {
-  margin: 0;
-  padding: 0;
-}
-html {
-  font-size: 12px;
-}
-
 .content {
-  width: 60%;
-  margin: 0 auto;
+  margin: 20px;
 }
 .negative-income {
   color: green;
