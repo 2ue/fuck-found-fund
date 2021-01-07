@@ -14,12 +14,19 @@ const closeMarketTime = `${dayjs().format('YYYY-MM-DD')} 15:00:01`;
 // 轮询时间(s)
 const pollingTime = 5;
 
+const getUpdateFlag = (value) => {
+    const arr = ['更新中', '更新完成'];
+    return <span class="red">({arr[value] || ''})</span>;
+}
+
 class funDataComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             showDetail: false,
-            onlyShowHave: false,
+            onlyShowHave: true,
+            // 0，更新中，1更新完成
+            updateFlag: -1,
             refreshTime: '',
             fundData: [],
             funListData: []
@@ -43,6 +50,7 @@ class funDataComponent extends React.Component {
         const fundListData = await getFundList();
         const {
             list,
+            updateFlag,
             ZRQRZSY,
             JRQRZSY,
             JRGSZSY,
@@ -50,6 +58,7 @@ class funDataComponent extends React.Component {
         } = this.dealData(fundListData.Datas, refreshTime);
 
         this.setState({
+            updateFlag,
             refreshTime,
             fundData: {
                 ZRQRZSY,
@@ -79,7 +88,10 @@ class funDataComponent extends React.Component {
             JRQRZSY: 0,
             JRGSZSY: 0,
             CCZSY: 0,
-        }
+            updateFlag: -1
+        };
+        let updateLen = 0;
+        let needUpdate = 0;
         obj.list = funds.map(fund => {
             const currentInvote = fundInvote[fund.FCODE];
             // 昨日确认总收益
@@ -94,12 +106,14 @@ class funDataComponent extends React.Component {
             let isHave = false;
 
             if (currentInvote) {
+                needUpdate += 1;
                 const { FCCFE, FCCCB } = currentInvote;
                 const { NAV, NAVCHGRT, GSZ, GSZZL, PDATE } = fund;
                 
                 isHave = true;
                 // 说明今天的净值已经更新
                 if (refreshTime.indexOf(PDATE) === 0 && Number(NAVCHGRT) && Number(NAV)) {
+                    updateLen += 1;
                     JRQRSY = mathjs.round(NAVCHGRT * NAV * FCCFE / 100, 2);
                 } else {
                     ZRQRZSY = mathjs.round(NAVCHGRT * NAV * FCCFE / 100, 2);
@@ -111,7 +125,6 @@ class funDataComponent extends React.Component {
                 obj.JRGSZSY += Number(JRGSSY);
                 obj.CCZSY += Number(CCSY);
             }
-
             return {
                 ...fund,
                 JRGSSY,
@@ -120,6 +133,13 @@ class funDataComponent extends React.Component {
                 isHave
             };
         });
+        if (updateLen === 0) {
+            obj.updateFlag = -1;
+        } else if (updateLen === needUpdate) {
+            obj.updateFlag = 1;
+        } else {
+            obj.updateFlag = 0;
+        }
         obj.ZRQRZSY = mathjs.round(obj.ZRQRZSY, 2);
         obj.JRQRZSY = mathjs.round(obj.JRQRZSY, 2);
         obj.JRGSZSY = mathjs.round(obj.JRGSZSY, 2);
@@ -173,6 +193,7 @@ class funDataComponent extends React.Component {
             fundData = {},
             refreshTime,
             onlyShowHave,
+            updateFlag,
             showDetail
         } = this.state;
 
@@ -180,7 +201,7 @@ class funDataComponent extends React.Component {
             <p className="update-time">更新时间：{refreshTime}</p>
             <p>持仓收益: {fundData.CCZSY}</p>
             <p>昨日确认总收益：{fundData.ZRQRZSY}</p>
-            <p>今日确认总收益：{fundData.JRQRZSY}</p>
+            <p>今日确认总收益：{fundData.JRQRZSY}{getUpdateFlag(updateFlag)}</p>
             <p>今日预估总收益：{fundData.JRGSZSY}</p>
             <div className="operation-container">
                 <button onClick={this.changeShowDetail.bind(this)}>{showDetail ? '隐藏' : '显示'}详情</button>
