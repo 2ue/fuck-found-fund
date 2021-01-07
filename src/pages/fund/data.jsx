@@ -199,7 +199,7 @@ class funDataComponent extends React.Component {
 
         return <div>
             <p className="update-time">更新时间：{refreshTime}</p>
-            <p>持仓收益: {fundData.CCZSY}</p>
+            <p>持仓收益：{fundData.CCZSY}</p>
             <p>昨日确认总收益：{fundData.ZRQRZSY}</p>
             <p>今日确认总收益：{fundData.JRQRZSY}{getUpdateFlag(updateFlag)}</p>
             <p>今日预估总收益：{fundData.JRGSZSY}</p>
