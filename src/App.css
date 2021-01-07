@@ -24,3 +24,10 @@
   width: 30px;
   color: red;
 }
+.operation-container {
+  margin-top: 10px;
+}
+.operation-container button {
+  margin-right: 10px;
+  cursor: pointer;
+}

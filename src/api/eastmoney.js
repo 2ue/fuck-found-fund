@@ -10,7 +10,7 @@ const allFundCodes = (() => {
     return _.uniq([
         ...Object.keys(fundInvote),
         ...fundCodes
-    ])
+    ]);
 })();
 
 function https(config) {
@@ -51,7 +51,7 @@ export function getFund(code) {
             product: 'EFund',
             MobileKey: '656c09923c567b89bb44801020bc59ab%7C%7Ciemi_tluafed_me'
         }
-    })
+    });
 }
 
 /**
@@ -80,5 +80,5 @@ export function getFundList(codes) {
             Version: 1,
             Fcodes: codes || allFundCodes.join(',')
         }
-    })
+    });
 }

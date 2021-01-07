@@ -1,10 +1,10 @@
 import React from 'react';
 import _ from 'lodash';
 import dayjs from 'dayjs';
+import NProgress from 'nprogress';
 import * as mathjs from 'mathjs';
 import { getFundList } from '../../api/eastmoney';
 import { fundInvote } from '../../data/fund';
-
 import FundList from './list';
 
 // 开市时间
@@ -18,8 +18,10 @@ class funDataComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            showDetail: false,
             onlyShowHave: false,
             refreshTime: '',
+            fundData: [],
             funListData: []
         };
     }
@@ -128,7 +130,9 @@ class funDataComponent extends React.Component {
     // 定时请求
     setTimer() {
         this.timer = setTimeout(() => {
+            NProgress.start();
             this.getFundListData();
+            NProgress.done();
         }, pollingTime * 1000);
     }
 
@@ -151,9 +155,15 @@ class funDataComponent extends React.Component {
         this.clearTimer();
     }
 
-    changeShow() {
+    changeShowHave() {
         this.setState({
             onlyShowHave: !this.state.onlyShowHave
+        });
+    }
+
+    changeShowDetail() {
+        this.setState({
+            showDetail: !this.state.showDetail
         });
     }
 
@@ -162,16 +172,21 @@ class funDataComponent extends React.Component {
             funListData = [],
             fundData = {},
             refreshTime,
-            onlyShowHave
+            onlyShowHave,
+            showDetail
         } = this.state;
+
         return <div>
             <p className="update-time">更新时间：{refreshTime}</p>
             <p>持仓收益: {fundData.CCZSY}</p>
             <p>昨日确认总收益：{fundData.ZRQRZSY}</p>
             <p>今日确认总收益：{fundData.JRQRZSY}</p>
             <p>今日预估总收益：{fundData.JRGSZSY}</p>
-            <button onClick={ this.changeShow.bind(this) }>隐藏未持有</button>
-            <FundList funds={funListData} onlyShowHave={onlyShowHave}></FundList>
+            <div className="operation-container">
+                <button onClick={this.changeShowDetail.bind(this)}>{showDetail ? '隐藏' : '显示'}详情</button>
+                <button onClick={this.changeShowHave.bind(this)}>{!onlyShowHave ? '隐藏' : '显示'}未持有</button>
+            </div>
+            {showDetail && <FundList funds={funListData} onlyShowHave={onlyShowHave}></FundList>}
         </div>;
     }
 }
