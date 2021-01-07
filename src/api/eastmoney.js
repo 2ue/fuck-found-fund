@@ -3,7 +3,15 @@
  */
 
 import axios from '../utils/axios';
-import { fundCodes } from '../data/fund';
+import _ from 'lodash';
+import { fundCodes, fundInvote } from '../data/fund';
+
+const allFundCodes = (() => {
+    return _.uniq([
+        ...Object.keys(fundInvote),
+        ...fundCodes
+    ])
+})();
 
 function https(config) {
     return axios({
@@ -70,7 +78,7 @@ export function getFundList(codes) {
             plat: 'Android',
             deviceid: '9e16077fca2fcr78ep0ltn98',
             Version: 1,
-            Fcodes: codes || fundCodes.join(',')
+            Fcodes: codes || allFundCodes.join(',')
         }
     })
 }
