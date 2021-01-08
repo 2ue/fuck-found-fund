@@ -16,7 +16,11 @@ const pollingTime = 5;
 
 const getUpdateFlag = (value) => {
     const arr = ['更新中', '更新完成'];
-    return <span class="red">({arr[value] || ''})</span>;
+    if (arr[value]) {
+        return <span class="red">({arr[value]})</span>;
+    } else {
+        return '';
+    }
 }
 
 class funDataComponent extends React.Component {
