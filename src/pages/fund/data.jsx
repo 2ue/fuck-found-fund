@@ -14,6 +14,12 @@ const closeMarketTime = `${dayjs().format('YYYY-MM-DD')} 15:00:01`;
 // 轮询时间(s)
 const pollingTime = 5;
 
+const setInfo = (data) => {
+    window.consoleInfo = () => {
+        console.log('预估总市值：', data.YGZSZ);
+    };
+};
+
 const getUpdateFlag = (value) => {
     const arr = ['更新中', '更新完成'];
     if (arr[value]) {
@@ -96,6 +102,10 @@ class funDataComponent extends React.Component {
         };
         let updateLen = 0;
         let needUpdate = 0;
+        let isHave = false;
+
+        let YGZSZ = 0;
+
         obj.list = funds.map(fund => {
             const currentInvote = fundInvote[fund.FCODE];
             // 昨日确认总收益
@@ -107,7 +117,6 @@ class funDataComponent extends React.Component {
             // 确认持仓收益
             let CCSY = 0;
             // 是否持仓
-            let isHave = false;
 
             if (currentInvote) {
                 needUpdate += 1;
@@ -128,6 +137,7 @@ class funDataComponent extends React.Component {
                 obj.JRQRZSY += Number(JRQRSY);
                 obj.JRGSZSY += Number(JRGSSY);
                 obj.CCZSY += Number(CCSY);
+                YGZSZ = mathjs.round(YGZSZ + NAV * FCCFE, 2);
             }
             return {
                 ...fund,
@@ -136,6 +146,9 @@ class funDataComponent extends React.Component {
                 CCSY,
                 isHave
             };
+        });
+        setInfo({
+            YGZSZ
         });
         if (updateLen === 0) {
             obj.updateFlag = -1;
