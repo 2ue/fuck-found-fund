@@ -200,9 +200,11 @@ class funDataComponent extends React.Component {
             updateFlag,
             showDetail
         } = this.state;
+        const fundLen = Object.keys(fundInvote).length;
 
         return <div>
             <p className="update-time">更新时间：{refreshTime}</p>
+            <p>持仓数量：{fundLen}</p>
             <p>持仓收益：{fundData.CCZSY}</p>
             <p>昨日确认总收益：{fundData.ZRQRZSY}</p>
             <p>今日确认总收益：{fundData.JRQRZSY}{getUpdateFlag(updateFlag)}</p>
