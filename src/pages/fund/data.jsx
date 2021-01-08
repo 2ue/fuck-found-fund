@@ -102,7 +102,6 @@ class funDataComponent extends React.Component {
         };
         let updateLen = 0;
         let needUpdate = 0;
-        let isHave = false;
 
         let YGZSZ = 0;
 
@@ -117,6 +116,7 @@ class funDataComponent extends React.Component {
             // 确认持仓收益
             let CCSY = 0;
             // 是否持仓
+            let isHave = false;
 
             if (currentInvote) {
                 needUpdate += 1;
