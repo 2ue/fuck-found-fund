@@ -111,7 +111,7 @@ class funDataComponent extends React.Component {
 
             if (currentInvote) {
                 needUpdate += 1;
-                const { FCCFE, FCCCB } = currentInvote;
+                const { FCCFE, FCCCBDJ } = currentInvote;
                 const { NAV, NAVCHGRT, GSZ, GSZZL, PDATE } = fund;
                 
                 isHave = true;
@@ -123,7 +123,7 @@ class funDataComponent extends React.Component {
                     ZRQRZSY = mathjs.round(NAVCHGRT * NAV * FCCFE / 100, 2);
                 }
                 JRGSSY = mathjs.round(GSZ * GSZZL * FCCFE / 100, 2);
-                CCSY = mathjs.round(GSZ * FCCFE - FCCCB, 2);
+                CCSY = mathjs.round(NAV * FCCFE - FCCCBDJ * FCCFE, 2) || 0;
                 obj.ZRQRZSY += Number(ZRQRZSY);
                 obj.JRQRZSY += Number(JRQRSY);
                 obj.JRGSZSY += Number(JRGSSY);
