@@ -19,6 +19,7 @@ function FundList(props) {
                 <span className="income-rate">收益率</span> | 
                 <span className="income-rate">今日预估收益</span> | 
                 <span className="income-rate">今日确认收益</span> | 
+                <span className="income-rate">持仓收益</span> | 
                 </p>
             </div>
             {funds.filter(fund => !onlyShowHave || fund.isHave).map(fund => {
@@ -27,6 +28,7 @@ function FundList(props) {
                         {getIncome(fund.GSZZL, '%')} | 
                         {getIncome(fund.JRGSSY)} |
                         {getIncome(fund.JRQRSY)} |
+                        {getIncome(fund.CCSY)} |
                         <span className="fund-name">
                             <label className="have-tag">{fund.isHave ? '持有' : ''}</label>
                             {fund.SHORTNAME}({fund.FCODE})
