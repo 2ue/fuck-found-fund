@@ -36,3 +36,9 @@
   color: red;
   margin: 0 5px;
 }
+.list-container {
+  overflow: auto;
+}
+.list-content {
+  width: 1200px;
+}

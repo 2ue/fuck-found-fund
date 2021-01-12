@@ -23,7 +23,7 @@ const setInfo = (data) => {
 const getUpdateFlag = (value) => {
     const arr = ['更新中', '更新完成'];
     if (arr[value]) {
-        return <span class="red">({arr[value]})</span>;
+        return <span className="red">({arr[value]})</span>;
     } else {
         return '';
     }
