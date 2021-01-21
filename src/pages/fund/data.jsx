@@ -62,21 +62,13 @@ class funDataComponent extends React.Component {
         const {
             list,
             updateFlag,
-            ZRQRZSY,
-            JRQRZSY,
-            JRGSZSY,
-            CCZSY
+            ...fundData
         } = this.dealData(fundListData.Datas, refreshTime);
 
         this.setState({
             updateFlag,
             refreshTime,
-            fundData: {
-                ZRQRZSY,
-                JRQRZSY,
-                JRGSZSY,
-                CCZSY
-            },
+            fundData,
             funListData: _.orderBy(list || [], d => (Number(d.GSZZL) + 100000), 'desc')
         });
         this.setTimer();
@@ -99,15 +91,15 @@ class funDataComponent extends React.Component {
             JRQRZSY: 0,
             JRGSZSY: 0,
             CCZSY: 0,
+            // 预估总市值
+            YGZSZ: 0,
+            // 持仓总成本
+            CCZCB: 0,
             updateFlag: -1
         };
+
         let updateLen = 0;
         let needUpdate = 0;
-
-        // 预估总市值
-        let YGZSZ = 0;
-        // 持仓总成本
-        let CCZCB = 0;
 
         obj.list = funds.map(fund => {
             const currentInvote = fundInvote[fund.FCODE];
@@ -141,8 +133,8 @@ class funDataComponent extends React.Component {
                 obj.JRQRZSY += Number(JRQRSY);
                 obj.JRGSZSY += Number(JRGSSY);
                 obj.CCZSY += Number(CCSY);
-                YGZSZ = mathjs.round(YGZSZ + NAV * FCCFE, 2);
-                CCZCB = mathjs.round(CCZCB + FCCFE * FCCCBDJ, 2);
+                obj.YGZSZ = mathjs.round(obj.YGZSZ + NAV * FCCFE, 2);
+                obj.CCZCB = mathjs.round(obj.CCZCB + FCCFE * FCCCBDJ, 2);
             }
             return {
                 ...fund,
@@ -152,10 +144,7 @@ class funDataComponent extends React.Component {
                 isHave
             };
         });
-        setInfo({
-            YGZSZ,
-            CCZCB
-        });
+        setInfo(obj);
         if (updateLen === 0) {
             obj.updateFlag = -1;
         } else if (updateLen === needUpdate) {
@@ -209,6 +198,14 @@ class funDataComponent extends React.Component {
             showDetail: !this.state.showDetail
         });
     }
+    printAll() {
+        const {
+            CCZCB,
+            YGZSZ
+        } = this.state.fundData;
+        window.consoleInfo();
+        window.alert(`持仓总成本：${CCZCB}<br/>预估总市值：${YGZSZ}`);
+    }
 
     render() {
         const {
@@ -222,6 +219,7 @@ class funDataComponent extends React.Component {
         const fundLen = Object.keys(fundInvote).length;
 
         return <div>
+            <button className="total-all" onClick={this.printAll.bind(this)}>总计</button>
             <p className="update-time">更新时间：{refreshTime}</p>
             <p>持仓数量：{fundLen}</p>
             <p>持仓收益：{fundData.CCZSY}</p>
