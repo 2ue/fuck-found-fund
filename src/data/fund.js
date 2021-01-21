@@ -37,74 +37,74 @@ export const fundCodes = [
 export const fundInvote = {
     '000478': {
         FCCFE: 2359.50,
-        FCCCBDJ: 2.297
+        FCCCBDJ: 2.2977
     },
     '001679': {
-        FCCFE: 6278.16,
-        FCCCBDJ: 1.7043
+        FCCFE: 6520.6,
+        FCCCBDJ: 1.7636
     },
     '161028': {
-        FCCFE: 8186.71,
-        FCCCBDJ: 0.4082
+        FCCFE: 8654.75,
+        FCCCBDJ: 0.4439
     },
     '001102': {
-        FCCFE: 3570.04,
-        FCCCBDJ: 3.1093
+        FCCFE: 3715.63,
+        FCCCBDJ: 3.1489
     },
     '519712': {
-        FCCFE: 1848.70,
-        FCCCBDJ: 3.3305
+        FCCFE: 1930.09,
+        FCCCBDJ: 3.3455
     },
     '005827': {
-        FCCFE: 3135.28,
-        FCCCBDJ: 2.3571
+        FCCFE: 3452.54,
+        FCCCBDJ: 2.416
     },
     '161005': {
-        FCCFE: 2030.61,
-        FCCCBDJ: 3.2969
+        FCCFE: 2137.87,
+        FCCCBDJ: 3.3186
     },
     '161725': {
-        FCCFE: 5739.15,
-        FCCCBDJ: 1.1953,
+        FCCFE: 7089.61,
+        FCCCBDJ: 1.2356,
     },
     '163406': {
-        FCCFE: 4320.30,
-        FCCCBDJ: 2.0386
+        FCCFE: 4651.61,
+        FCCCBDJ: 2.0439
     },
     '002510': {
         FCCFE: 9234.87,
         FCCCBDJ: 1.5593
     },
     '003095': {
-        FCCFE: 2491.48,
-        FCCCBDJ: 3.0543
+        FCCFE: 2776.91,
+        FCCCBDJ: 3.0644
     },
     '002656': {
-        FCCFE: 7414.47,
-        FCCCBDJ: 1.3039
+        FCCFE: 7481.17,
+        FCCCBDJ: 1.3056
     },
     '004069': {
         FCCFE: 9993.63,
         FCCCBDJ: 1.2474
     },
     '008086': {
-        FCCFE: 11180.99,
-        FCCCBDJ: 1.245
+        FCCFE: 11419.77,
+        FCCCBDJ: 1.2452
     },
     '007300': {
-        FCCFE: 4136.30,
-        FCCCBDJ: 2.1638
+        FCCFE: 4457.47,
+        FCCCBDJ: 2.1649
     },
     '009329': {
-        FCCFE: 8548.7,
-        FCCCBDJ: 1.3686
+        FCCFE: 8776.88,
+        FCCCBDJ: 1.3786
     },
     '519727': {
-        FCCFE: 2864.02,
-        FCCCBDJ: 2.1709
+        FCCFE: 3051.22,
+        FCCCBDJ: 2.2016
     },
     '001156': {
-        FCCFE: 5078.13,
-        FCCCBDJ: 2.6181
+        FCCFE: 5241.35,
+        FCCCBDJ: 2.6129
     },
 };
