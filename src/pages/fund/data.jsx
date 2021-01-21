@@ -16,6 +16,7 @@ const pollingTime = 5;
 
 const setInfo = (data) => {
     window.consoleInfo = () => {
+        console.log('持仓总成本：', data.CCZCB);
         console.log('预估总市值：', data.YGZSZ);
     };
 };
@@ -103,7 +104,10 @@ class funDataComponent extends React.Component {
         let updateLen = 0;
         let needUpdate = 0;
 
+        // 预估总市值
         let YGZSZ = 0;
+        // 持仓总成本
+        let CCZCB = 0;
 
         obj.list = funds.map(fund => {
             const currentInvote = fundInvote[fund.FCODE];
@@ -138,6 +142,7 @@ class funDataComponent extends React.Component {
                 obj.JRGSZSY += Number(JRGSSY);
                 obj.CCZSY += Number(CCSY);
                 YGZSZ = mathjs.round(YGZSZ + NAV * FCCFE, 2);
+                CCZCB = mathjs.round(CCZCB + FCCFE * FCCCBDJ, 2);
             }
             return {
                 ...fund,
@@ -148,7 +153,8 @@ class funDataComponent extends React.Component {
             };
         });
         setInfo({
-            YGZSZ
+            YGZSZ,
+            CCZCB
         });
         if (updateLen === 0) {
             obj.updateFlag = -1;
