@@ -17,7 +17,7 @@ function FundList(props) {
             <div className="list-content">
                 <div className="list-header">
                     <p>
-                    <span className="income-rate">收益率</span> | 
+                    <span className="income-rate">今日预估收益率</span> | 
                     <span className="income-rate">今日预估收益</span> | 
                     <span className="income-rate">今日确认收益</span> | 
                     <span className="income-rate">持仓收益</span> | 

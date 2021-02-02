@@ -132,11 +132,11 @@ class TradingModel {
         // 卖出频次: 必须高于七天才能卖出，减少手续费
         this.sellInterval = 7;
 
-        this.createPosition(options.startInvote);
-        const len = this.data.length;
-        for (let i = 1; i < len; i++) {
-            this.buy(100, this.data[i]);
-        }
+        // this.createPosition(options.startInvote);
+        // const len = this.data.length;
+        // for (let i = 1; i < len; i++) {
+        //     this.buy(100, this.data[i]);
+        // }
     }
 
     // 取出数据中的价格和时间
@@ -183,8 +183,10 @@ class TradingModel {
      * 持仓份额：positionAmount
      * 持仓市值(持仓金额): postionValue
      * 
-     * 累计净收益：netIncom
+     * 累积收益：totalIncome
      * 累计总收益率：totalRate
+     * 
+     * 累计净收益：netIncome
      * 累计净收益率：netRate
      * 
      * @param {Object} data: 买入信息
@@ -195,7 +197,9 @@ class TradingModel {
             price,
             time
         } = this.getFundData(data);
+        // 如果不使用盈利再投入，所需要投入的最大总资金
         this.totalInvote = count(value + this.totalInvote);
+        // 如果使用盈利再投入：优先使用盈利再投入
         const inFactNeedInvote = value - this.netIncome;
         if (inFactNeedInvote > 0) {
             this.netIncome = 0;
@@ -203,14 +207,16 @@ class TradingModel {
         } else {
             this.netIncome = count(-inFactNeedInvote);
         }
+        // 当前持仓的中本金金额
         this.postionInvote = count(value + this.postionInvote);
         this.operationTime = time;
         this.marketPrice = price;
         const prePositionAmount = this.positionAmount;
-        // const prePositionValue = this.positionValue;
         this.positionValue = count(prePositionAmount * price + value);
         this.positionAmount = count(value / price + prePositionAmount, 4);
         this.positionPrice = count(this.postionInvote / this.positionAmount, 4);
+
+        this.totalIncome = (this.positionValue - this.totalInvote);
 
         console.log('-------START BUY-------');
         console.log('operationTime==>', this.operationTime);
