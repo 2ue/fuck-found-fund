@@ -42,7 +42,7 @@ export const fundInvote = {
         PLATFORM: 'JD'
     },
     '001679': {
-        FCCFE: 7683.15,
+        FCCFE: 6783.15,
         FCCCBDJ: 1.8281,
         PLATFORM: 'JD'
     },

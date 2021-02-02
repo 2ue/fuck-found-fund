@@ -1,4 +1,6 @@
 /**
+ * 主要用于做历史回测
+ * 
  * 定投策略
  * 1.确认投入本金
  * 2.确认计划投入周期：整体时间，间隔时间，每次投入份额
@@ -131,6 +133,10 @@ class TradingModel {
         this.sellInterval = 7;
 
         this.createPosition(options.startInvote);
+        const len = this.data.length;
+        for (let i = 1; i < len; i++) {
+            this.buy(100, this.data[i]);
+        }
     }
 
     // 取出数据中的价格和时间
@@ -143,12 +149,13 @@ class TradingModel {
     }
 
     /**
-     * 建仓value
-     * 直接无脑买入
+     * @function 建仓，默认取数据的第一条价格
+     * @param value 初始买入金额
+     * @param fundData 基金的数据
      *  */
-    createPosition(value) {
+    createPosition(value, fundData) {
         console.log('startInvote==>', value);
-        let data = this.data[0];
+        let data = fundData || this.data[0];
         if (!value && value < 0) {
             console.log('无建仓数据');
             return;
@@ -160,7 +167,7 @@ class TradingModel {
         this.startTime = time;
         this.startPrice = price;
         this.startInvote = value;
-        this.buy(data, value);
+        this.buy(value, data);
     }
 
     /**
@@ -183,7 +190,7 @@ class TradingModel {
      * @param {Object} data: 买入信息
      * @param {Number} value: 买入金额
      */
-    buy(data, value) {
+    buy(value, data) {
         const {
             price,
             time
@@ -200,11 +207,12 @@ class TradingModel {
         this.operationTime = time;
         this.marketPrice = price;
         const prePositionAmount = this.positionAmount;
-        const prePositionValue = this.positionValue;
-        this.positionAmount = count(value / price + prePositionAmount);
-        this.positionPrice = count((value + prePositionValue) / this.positionAmount);
-        this.positionValue = count(price * prePositionAmount + value);
+        // const prePositionValue = this.positionValue;
+        this.positionValue = count(prePositionAmount * price + value);
+        this.positionAmount = count(value / price + prePositionAmount, 4);
+        this.positionPrice = count(this.postionInvote / this.positionAmount, 4);
 
+        console.log('-------START BUY-------');
         console.log('operationTime==>', this.operationTime);
         console.log('marketPrice==>', this.marketPrice);
         console.log('totalInvote==>', this.totalInvote);
@@ -214,6 +222,7 @@ class TradingModel {
         console.log('positionAmount==>', this.positionAmount);
         console.log('positionPrice==>', this.positionPrice);
         console.log('positionValue==>', this.positionValue);
+        console.log('-------END BUY-------');
     }
 
     updateTotalInvote(value) {
