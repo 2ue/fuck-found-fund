@@ -33,78 +33,97 @@ export const fundCodes = [
  * FCCFE: 持仓份额
  * FCCCB: 持仓成本
  * FCCCBDJ: 持仓成本单价
+ * PLATFORM: 平台简称
  */
 export const fundInvote = {
     '000478': {
         FCCFE: 2359.50,
-        FCCCBDJ: 2.2977
+        FCCCBDJ: 2.2977,
+        PLATFORM: 'JD'
     },
     '001679': {
-        FCCFE: 6520.6,
-        FCCCBDJ: 1.7636
+        FCCFE: 7683.15,
+        FCCCBDJ: 1.8281,
+        PLATFORM: 'JD'
     },
     '161028': {
         FCCFE: 8654.75,
-        FCCCBDJ: 0.4439
+        FCCCBDJ: 0.4439,
+        PLATFORM: 'TTJJ'
     },
     '001102': {
-        FCCFE: 3715.63,
-        FCCCBDJ: 3.1489
+        FCCFE: 4023.65,
+        FCCCBDJ: 3.237,
+        PLATFORM: 'TTJJ'
     },
-    '519712': {
-        FCCFE: 1930.09,
-        FCCCBDJ: 3.3455
+    '001156': {
+        FCCFE: 5813.26,
+        FCCCBDJ: 2.6138,
+        PLATFORM: 'TTJJ'
+    },
+    '005969': {
+        FCCFE: 2067.01,
+        FCCCBDJ: 3.3484,
+        PLATFORM: 'TTJJ'
     },
     '005827': {
-        FCCFE: 3452.54,
-        FCCCBDJ: 2.416
+        FCCFE: 3610.28,
+        FCCCBDJ: 2.4489,
+        PLATFORM: 'TTJJ'
     },
     '161005': {
-        FCCFE: 2137.87,
-        FCCCBDJ: 3.3186
+        FCCFE: 2191.41,
+        FCCCBDJ: 3.3288,
+        PLATFORM: 'TTJJ'
     },
     '161725': {
-        FCCFE: 7089.61,
-        FCCCBDJ: 1.2356,
+        FCCFE: 7444.18,
+        FCCCBDJ: 1.2439,
+        PLATFORM: 'MYCF'
     },
     '163406': {
-        FCCFE: 4651.61,
-        FCCCBDJ: 2.0439
+        FCCFE: 4888.18,
+        FCCCBDJ: 2.0473,
+        PLATFORM: 'MYCF'
     },
     '002510': {
         FCCFE: 9234.87,
-        FCCCBDJ: 1.5593
+        FCCCBDJ: 1.5593,
+        PLATFORM: 'MYCF'
     },
     '003095': {
-        FCCFE: 2776.91,
-        FCCCBDJ: 3.0644
+        FCCFE: 2937.07,
+        FCCCBDJ: 3.1016,
+        PLATFORM: 'MYCF'
     },
     '002656': {
-        FCCFE: 7481.17,
-        FCCCBDJ: 1.3056
+        FCCFE: 7870.36,
+        FCCCBDJ: 1.3173,
+        PLATFORM: 'MYCF'
     },
     '004069': {
-        FCCFE: 9993.63,
-        FCCCBDJ: 1.2474
+        FCCFE: 10968.37,
+        FCCCBDJ: 1.2459,
+        PLATFORM: 'MYCF'
     },
     '008086': {
-        FCCFE: 11419.77,
-        FCCCBDJ: 1.2452
+        FCCFE: 12340.87,
+        FCCCBDJ: 1.2414,
+        PLATFORM: 'MYCF'
     },
     '007300': {
-        FCCFE: 4457.47,
-        FCCCBDJ: 2.1649
+        FCCFE: 4890.16,
+        FCCCBDJ: 2.1574,
+        PLATFORM: 'MYCF'
     },
     '009329': {
-        FCCFE: 8776.88,
-        FCCCBDJ: 1.3786
+        FCCFE: 8889.8,
+        FCCCBDJ: 1.3836,
+        PLATFORM: 'MYCF'
     },
     '519727': {
-        FCCFE: 3051.22,
-        FCCCBDJ: 2.2016
-    },
-    '001156': {
-        FCCFE: 5241.35,
-        FCCCBDJ: 2.6129
+        FCCFE: 3120.58,
+        FCCCBDJ: 2.2168,
+        PLATFORM: 'MYCF'
     },
 };
