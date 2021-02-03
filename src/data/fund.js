@@ -36,11 +36,11 @@ export const fundCodes = [
  * PLATFORM: 平台简称
  */
 export const fundInvote = {
-    '000478': {
-        FCCFE: 2359.50,
-        FCCCBDJ: 2.2977,
-        PLATFORM: 'JD'
-    },
+    // '000478': {
+    //     FCCFE: 2359.50,
+    //     FCCCBDJ: 2.2977,
+    //     PLATFORM: 'JD'
+    // },
     '001679': {
         FCCFE: 6783.15,
         FCCCBDJ: 1.8281,
