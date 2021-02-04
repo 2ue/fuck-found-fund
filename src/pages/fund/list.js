@@ -11,25 +11,25 @@ function getIncome(income, unit) {
 }
 
 function FundList(props) {
-    const { funds, onlyShowHave } = props;
+    const { funds, onlyShowHave, showRate } = props;
     return (
         <div className="list-container">
             <div className="list-content">
                 <div className="list-header">
                     <p>
-                    <span className="income-rate">今日预估收益率</span> | 
-                    <span className="income-rate">今日预估收益</span> | 
-                    <span className="income-rate">今日确认收益</span> | 
-                    <span className="income-rate">持仓收益</span> | 
+                        <span className="income-rate">今日预估收益率</span>
+                        {!showRate ? <span className="income-rate">今日预估收益</span> : ''}
+                        {!showRate ? <span className="income-rate">今日确认收益</span> : ''}
+                        <span className="income-rate">持仓收益</span>
                     </p>
                 </div>
                 {funds.filter(fund => !onlyShowHave || fund.isHave).map(fund => {
                     return <div className="" key={fund.FCODE}>
                         <p>
-                            {getIncome(fund.GSZZL, '%')} | 
-                            {getIncome(fund.JRGSSY)} |
-                            {getIncome(fund.JRQRSY)} |
-                            {getIncome(fund.CCSY)} |
+                            {getIncome(fund.GSZZL, '%')}
+                            {!showRate ? getIncome(fund.JRGSSY) : ''}
+                            {!showRate ? getIncome(fund.JRQRSY) : ''}
+                            {getIncome(fund.CCSY)}
                             <span className="fund-name">
                                 <label className="have-tag">{fund.isHave ? '持有' : ''}</label>
                                 {fund.SHORTNAME}({fund.FCODE})

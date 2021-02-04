@@ -30,6 +30,14 @@ const getUpdateFlag = (value) => {
     }
 }
 
+function getNumber(value, type, data) {
+    if (type) {
+        const rate = mathjs.round(value / data * 100, 2);
+        return `${rate}%`;
+    }
+    return value;
+}
+
 class funDataComponent extends React.Component {
     constructor(props) {
         super(props);
@@ -40,7 +48,8 @@ class funDataComponent extends React.Component {
             updateFlag: -1,
             refreshTime: '',
             fundData: [],
-            funListData: []
+            funListData: [],
+            showRate: true
         };
     }
 
@@ -206,6 +215,12 @@ class funDataComponent extends React.Component {
         window.consoleInfo();
         window.alert(`持仓总成本：${CCZCB}<br/>预估总市值：${YGZSZ}`);
     }
+    
+    swtichNumber() {
+        this.setState({
+            showRate: !this.state.showRate
+        });
+    }
 
     render() {
         const {
@@ -214,23 +229,32 @@ class funDataComponent extends React.Component {
             refreshTime,
             onlyShowHave,
             updateFlag,
-            showDetail
+            showDetail,
+            showRate
         } = this.state;
+        const {
+            CCZSY,
+            YGZSZ,
+            ZRQRZSY,
+            JRQRZSY,
+            JRGSZSY
+        } = fundData;
         const fundLen = Object.keys(fundInvote).length;
 
         return <div>
             <button className="total-all" onClick={this.printAll.bind(this)}>总计</button>
+            <button className="total-all swtich-number" onClick={this.swtichNumber.bind(this)}>总计</button>
             <p className="update-time">更新时间：{refreshTime}</p>
             <p>持仓数量：{fundLen}</p>
-            <p>持仓收益：{fundData.CCZSY}</p>
-            <p>昨日确认总收益：{fundData.ZRQRZSY}</p>
-            <p>今日确认总收益：{fundData.JRQRZSY}{getUpdateFlag(updateFlag)}</p>
-            <p>今日预估总收益：{fundData.JRGSZSY}</p>
+            <p>持仓收益：{CCZSY}</p>
+            <p>昨日确认总收益：{getNumber(ZRQRZSY, showRate, YGZSZ)}</p>
+            <p>今日确认总收益：{getNumber(JRQRZSY, showRate, YGZSZ)}{getUpdateFlag(updateFlag)}</p>
+            <p>今日预估总收益：{getNumber(JRGSZSY, showRate, YGZSZ)}</p>
             <div className="operation-container">
                 <button onClick={this.changeShowDetail.bind(this)}>{showDetail ? '隐藏' : '显示'}详情</button>
                 <button onClick={this.changeShowHave.bind(this)}>{!onlyShowHave ? '隐藏' : '显示'}未持有</button>
             </div>
-            {showDetail && <FundList funds={funListData} onlyShowHave={onlyShowHave}></FundList>}
+            {showDetail && <FundList funds={funListData} onlyShowHave={onlyShowHave} showRate={showRate}></FundList>}
         </div>;
     }
 }
