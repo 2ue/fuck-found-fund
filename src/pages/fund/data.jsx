@@ -257,12 +257,14 @@ class funDataComponent extends React.Component {
         } = fundData;
         const fundLen = Object.keys(fundInvote).length;
 
+        const ZSYL = count(CCZSY / CCZCB * 100, 2);
+
         return <div>
             <button className="total-all" onClick={this.printAll.bind(this)}>总计</button>
             <button className="total-all swtich-number" onClick={this.swtichNumber.bind(this)}>总计</button>
             <p className="update-time">更新时间：{refreshTime}</p>
             <p>持仓数量：{fundLen}</p>
-            <p>持仓收益：{showRate ? count(CCZSY / CCZCB * 100, 2) : CCZSY}</p>
+            <p>持仓收益：{showRate ? `${ZSYL}%` : CCZSY}</p>
             <p>昨日确认总收益：{getNumber(ZRQRZSY, showRate, YGZSZ)}</p>
             <p>今日确认总收益：{getNumber(JRQRZSY, showRate, YGZSZ)}{getUpdateFlag(updateFlag)}</p>
             <p>今日预估总收益：{getNumber(JRGSZSY, showRate, YGZSZ)}</p>
