@@ -14,6 +14,11 @@ const closeMarketTime = `${dayjs().format('YYYY-MM-DD')} 15:00:01`;
 // 轮询时间(s)
 const pollingTime = 5;
 
+
+function count(number, dec = 2) {
+    return mathjs.round(number, dec);
+}
+
 const setInfo = (data) => {
     window.consoleInfo = () => {
         console.log('持仓总成本：', data.CCZCB);
@@ -32,7 +37,7 @@ const getUpdateFlag = (value) => {
 
 function getNumber(value, type, data) {
     if (type) {
-        const rate = mathjs.round(value / data * 100, 2);
+        const rate = count(value / data * 100);
         return `${rate}%`;
     }
     return value;
@@ -120,6 +125,10 @@ class funDataComponent extends React.Component {
             let JRQRSY = 0;
             // 确认持仓收益
             let CCSY = 0;
+            // 持仓总成本: 投入的本金
+            let CCZCB = 0;
+            // 持仓总市值： CCSY+CCZCB
+            let CCZSZ = 0;
             // 是否持仓
             let isHave = false;
 
@@ -129,27 +138,33 @@ class funDataComponent extends React.Component {
                 const { NAV, NAVCHGRT, GSZ, GSZZL, PDATE } = fund;
                 
                 isHave = true;
+                CCZCB = count(FCCCBDJ * FCCFE);
+                CCZSZ = count(NAV * FCCFE);
                 // 说明今天的净值已经更新
                 if (refreshTime.indexOf(PDATE) === 0 && Number(NAVCHGRT) && Number(NAV)) {
                     updateLen += 1;
-                    JRQRSY = mathjs.round(NAVCHGRT * NAV * FCCFE / 100, 2);
+                    JRQRSY = count(NAVCHGRT * CCZSZ / 100);
                 } else {
-                    ZRQRZSY = mathjs.round(NAVCHGRT * NAV * FCCFE / 100, 2);
+                    ZRQRZSY = count(NAVCHGRT * CCZSZ / 100);
                 }
-                JRGSSY = mathjs.round(GSZ * GSZZL * FCCFE / 100, 2);
-                CCSY = mathjs.round(NAV * FCCFE - FCCCBDJ * FCCFE, 2) || 0;
+                JRGSSY = count(GSZ * GSZZL * FCCFE / 100);
+                CCSY = count(CCZSZ - CCZCB) || 0;
                 obj.ZRQRZSY += Number(ZRQRZSY);
                 obj.JRQRZSY += Number(JRQRSY);
                 obj.JRGSZSY += Number(JRGSSY);
                 obj.CCZSY += Number(CCSY);
-                obj.YGZSZ = mathjs.round(obj.YGZSZ + NAV * FCCFE, 2);
-                obj.CCZCB = mathjs.round(obj.CCZCB + FCCFE * FCCCBDJ, 2);
+                obj.YGZSZ = count(obj.YGZSZ + CCZSZ);
+                obj.CCZCB = count(obj.CCZCB + CCZCB);
             }
             return {
                 ...fund,
                 JRGSSY,
                 JRQRSY,
+                JRQRSYL: count(JRQRSY / CCZSZ * 100),
                 CCSY,
+                CCSYL: count(CCSY / CCZCB * 100),
+                CCZCB,
+                CCZSZ,
                 isHave
             };
         });
@@ -161,10 +176,10 @@ class funDataComponent extends React.Component {
         } else {
             obj.updateFlag = 0;
         }
-        obj.ZRQRZSY = mathjs.round(obj.ZRQRZSY, 2);
-        obj.JRQRZSY = mathjs.round(obj.JRQRZSY, 2);
-        obj.JRGSZSY = mathjs.round(obj.JRGSZSY, 2);
-        obj.CCZSY = mathjs.round(obj.CCZSY, 2);
+        obj.ZRQRZSY = count(obj.ZRQRZSY);
+        obj.JRQRZSY = count(obj.JRQRZSY);
+        obj.JRGSZSY = count(obj.JRGSZSY);
+        obj.CCZSY = count(obj.CCZSY);
         return obj;
     }
 
@@ -233,6 +248,7 @@ class funDataComponent extends React.Component {
             showRate
         } = this.state;
         const {
+            CCZCB,
             CCZSY,
             YGZSZ,
             ZRQRZSY,
@@ -246,7 +262,7 @@ class funDataComponent extends React.Component {
             <button className="total-all swtich-number" onClick={this.swtichNumber.bind(this)}>总计</button>
             <p className="update-time">更新时间：{refreshTime}</p>
             <p>持仓数量：{fundLen}</p>
-            <p>持仓收益：{CCZSY}</p>
+            <p>持仓收益：{showRate ? count(CCZSY / CCZCB * 100, 2) : CCZSY}</p>
             <p>昨日确认总收益：{getNumber(ZRQRZSY, showRate, YGZSZ)}</p>
             <p>今日确认总收益：{getNumber(JRQRZSY, showRate, YGZSZ)}{getUpdateFlag(updateFlag)}</p>
             <p>今日预估总收益：{getNumber(JRGSZSY, showRate, YGZSZ)}</p>
@@ -254,7 +270,7 @@ class funDataComponent extends React.Component {
                 <button onClick={this.changeShowDetail.bind(this)}>{showDetail ? '隐藏' : '显示'}详情</button>
                 <button onClick={this.changeShowHave.bind(this)}>{!onlyShowHave ? '隐藏' : '显示'}未持有</button>
             </div>
-            {showDetail && <FundList funds={funListData} onlyShowHave={onlyShowHave} showRate={showRate}></FundList>}
+            {showDetail && <FundList funds={funListData} onlyShowHave={onlyShowHave} showRate={showRate} updateFlag={updateFlag}></FundList>}
         </div>;
     }
 }
