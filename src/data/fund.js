@@ -47,11 +47,11 @@ export const fundInvote = {
         FCCCBDJ: 1.8281,
         PLATFORM: 'JD'
     },
-    '161028': {
-        FCCFE: 8654.75,
-        FCCCBDJ: 0.4439,
-        PLATFORM: 'TTJJ'
-    },
+    // '161028': {
+    //     FCCFE: 8654.75,
+    //     FCCCBDJ: 0.4439,
+    //     PLATFORM: 'TTJJ'
+    // },
     '001102': {
         FCCFE: 4023.65,
         FCCCBDJ: 3.237,
@@ -87,14 +87,29 @@ export const fundInvote = {
         FCCCBDJ: 2.0473,
         PLATFORM: 'MYCF'
     },
-    '002510': {
-        FCCFE: 9234.87,
-        FCCCBDJ: 1.5593,
+    '162605': {
+        FCCFE: 4047.28,
+        FCCCBDJ: 3.7576,
         PLATFORM: 'MYCF'
     },
+    // '002510': {
+    //     FCCFE: 9234.87,
+    //     FCCCBDJ: 1.5593,
+    //     PLATFORM: 'MYCF'
+    // },
     '003095': {
         FCCFE: 2937.07,
         FCCCBDJ: 3.1016,
+        PLATFORM: 'MYCF'
+    },
+    '001875': {
+        FCCFE: 1680.41,
+        FCCCBDJ: 2.9755,
+        PLATFORM: 'MYCF'
+    },
+    '001837': {
+        FCCFE: 565.83,
+        FCCCBDJ: 2.2595,
         PLATFORM: 'MYCF'
     },
     '002656': {
