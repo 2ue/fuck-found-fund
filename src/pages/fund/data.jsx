@@ -82,12 +82,23 @@ class funDataComponent extends React.Component {
         this.setState({
             updateFlag,
             refreshTime,
-            fundData,
-            funListData: _.orderBy(list || [], d => (Number(d.GSZZL) + 100000), 'desc')
+            fundData
         });
+        this.sortList(list, 'GSZZL');
         this.setTimer();
     }
-
+    sortList(list, key) {
+        const order = this.state[key];
+        const o =  order === 'desc' ? 'asc' : 'desc';
+        let l = list;
+        if (_.isEmpty(l)) {
+            l = this.state.funListData;
+        }
+        this.setState({
+            [key]: o,
+            funListData: _.orderBy(l || [], d => (Number(d[key]) + 100000), o)
+        });
+    }
     /**
      * 计算基金实时收益情况等
      * @param {Array} funds 基金实时信息
@@ -272,7 +283,7 @@ class funDataComponent extends React.Component {
                 <button onClick={this.changeShowDetail.bind(this)}>{showDetail ? '隐藏' : '显示'}详情</button>
                 <button onClick={this.changeShowHave.bind(this)}>{!onlyShowHave ? '隐藏' : '显示'}未持有</button>
             </div>
-            {showDetail && <FundList funds={funListData} onlyShowHave={onlyShowHave} showRate={showRate} updateFlag={updateFlag}></FundList>}
+            {showDetail && <FundList funds={funListData} onlyShowHave={onlyShowHave} showRate={showRate} updateFlag={updateFlag} sortList={this.sortList.bind(this)}></FundList>}
         </div>;
     }
 }
