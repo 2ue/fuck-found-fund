@@ -84,12 +84,12 @@ class funDataComponent extends React.Component {
             refreshTime,
             fundData
         });
-        this.sortList(list, 'GSZZL');
+        this.sortList(list, 'GSZZL', 'desc');
         this.setTimer();
     }
-    sortList(list, key) {
-        const order = this.state[key];
-        const o =  order === 'desc' ? 'asc' : 'desc';
+    sortList(list, key, order) {
+        const _order = this.state[key];
+        const o =  order || (_order === 'desc' ? 'asc' : 'desc');
         let l = list;
         if (_.isEmpty(l)) {
             l = this.state.funListData;
