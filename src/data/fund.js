@@ -37,74 +37,64 @@ export const fundCodes = [
  * PLATFORM: 平台简称
  */
 export const fundInvote = {
-    // '000478': {
-    //     FCCFE: 2359.50,
-    //     FCCCBDJ: 2.2977,
-    //     PLATFORM: 'JD'
-    // },
     '001679': {
         FCCFE: 6783.15,
         FCCCBDJ: 1.8281,
         PLATFORM: 'JD'
     },
-    // '161028': {
-    //     FCCFE: 8654.75,
-    //     FCCCBDJ: 0.4439,
-    //     PLATFORM: 'TTJJ'
-    // },
     '001102': {
-        FCCFE: 4480.89,
-        FCCCBDJ: 3.3530,
+        FCCFE: 5056.60,
+        FCCCBDJ: 3.4064,
         PLATFORM: 'TTJJ'
     },
     '001156': {
-        FCCFE: 6245.14,
-        FCCCBDJ: 2.6092,
+        FCCFE: 8128.31,
+        FCCCBDJ: 2.5337,
         PLATFORM: 'TTJJ'
     },
     '005969': {
-        FCCFE: 2470.65,
-        FCCCBDJ: 3.3680,
+        FCCFE: 3112.99,
+        FCCCBDJ: 3.2834,
         PLATFORM: 'TTJJ'
     },
     '005827': {
-        FCCFE: 4123.13,
-        FCCCBDJ: 2.5643,
+        FCCFE: 4975.77,
+        FCCCBDJ: 2.6273,
         PLATFORM: 'TTJJ'
     },
     '161005': {
-        FCCFE: 2292.53,
-        FCCCBDJ: 3.3564,
+        FCCFE: 2738.66,
+        FCCCBDJ: 3.2479,
         PLATFORM: 'TTJJ'
     },
     '161725': {
-        FCCFE: 8634.08,
-        FCCCBDJ: 1.2779,
+        FCCFE: 9963.58,
+        FCCCBDJ: 1.2814,
         PLATFORM: 'MYCF'
     },
     '163406': {
-        FCCFE: 4846.65,
-        FCCCBDJ: 2.0708,
+        FCCFE: 7216.12,
+        FCCCBDJ: 2.0728,
         PLATFORM: 'MYCF'
     },
     '162605': {
-        FCCFE: 4332.47,
-        FCCCBDJ: 3.7411,
+        FCCFE: 5177.59,
+        FCCCBDJ: 3.6346,
         PLATFORM: 'MYCF'
     },
     '005911': {
-        FCCFE: 255.91,
-        FCCCBDJ: 3.9076,
+        FCCFE: 959.56,
+        FCCCBDJ: 3.4912,
         PLATFORM: 'MYCF'
     },
     '003095': {
-        FCCFE: 3673.12,
-        FCCCBDJ: 3.2424,
+        FCCFE: 4185.51,
+        FCCCBDJ: 3.2482,
         PLATFORM: 'MYCF'
     },
     '001875': {
-        FCCFE: 1918.68,
-        FCCCBDJ: 2.9708,
+        FCCFE: 3306.25,
+        FCCCBDJ: 2.8129,
         PLATFORM: 'MYCF'
     },
     '001837': {
@@ -113,17 +103,17 @@ export const fundInvote = {
         PLATFORM: 'MYCF'
     },
     '002656': {
-        FCCFE: 8837.84,
-        FCCCBDJ: 1.3428,
+        FCCFE: 9543.07,
+        FCCCBDJ: 1.3444,
         PLATFORM: 'MYCF'
     },
     '004069': {
-        FCCFE: 11483.29,
-        FCCCBDJ: 1.2423,
+        FCCFE: 11028.47,
+        FCCCBDJ: 1.2418,
         PLATFORM: 'MYCF'
     },
     '008086': {
-        FCCFE: 9340.87,
+        FCCFE: 8840.87,
         FCCCBDJ: 1.2414,
         PLATFORM: 'MYCF'
     },
@@ -133,13 +123,13 @@ export const fundInvote = {
         PLATFORM: 'MYCF'
     },
     '009329': {
-        FCCFE: 9479.02,
-        FCCCBDJ: 1.4136,
+        FCCFE: 10094.45,
+        FCCCBDJ: 1.4315,
         PLATFORM: 'MYCF'
     },
     '519727': {
-        FCCFE: 3407.09,
-        FCCCBDJ: 2.2652,
+        FCCFE: 3761.86,
+        FCCCBDJ: 2.2908,
         PLATFORM: 'MYCF'
     },
 };
