@@ -1,10 +1,10 @@
 .quantify-container {
     width: 80%;
     margin: 20px auto;
-    text-align: center;
 }
-.quantify-container  table {
+.quantify-container table {
     width: 100%;
+    text-align: center;
 }
 .fund-list-title{
     font-size: 14px;
