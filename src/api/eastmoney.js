@@ -4,7 +4,7 @@
 
 import axios from '../utils/axios';
 import _ from 'lodash';
-import { fundCodes, fundInvote } from '../data/fund';
+import { fundCodes, fundInvote } from '../data/fund/index';
 
 const allFundCodes = (() => {
     return _.uniq([

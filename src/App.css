@@ -1,4 +1,24 @@
-.content {
+.container {
+  position: relative;
+}
+
+/* header */
+.menu {
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  border-top: 1px solid #eee;
+}
+.menu li {
+  height: 40px;
+  line-height: 40px;
+  display: inline-block;
+}
+
+
+.fund-container {
   margin: 20px;
 }
 .negative-income {

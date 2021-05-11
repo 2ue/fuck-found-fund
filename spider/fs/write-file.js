@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const DIR = 'src/data';
+const DIR = 'src/data/quantify';
 const FILENAME = 'fund.json';
 module.exports = function (data, filename = FILENAME, dir = DIR) {
     const wDir = path.join(process.cwd(), dir);
@@ -17,6 +17,5 @@ module.exports = function (data, filename = FILENAME, dir = DIR) {
     
         // 创建成功
         console.log(`创建成功！`);
-        
     });
 }

@@ -290,7 +290,7 @@ const path = require('path');
 
 function run(code) {
     csv()
-    .fromFile(path.join(__dirname, `../data/${code}.csv`))
+    .fromFile(path.join(__dirname, `../data/grid/${code}.csv`))
     .then((json) => {
         // console.log(json);
         const aa = new TradingModel({
