@@ -15,7 +15,7 @@ export default class Index extends React.Component {
       <div className="home-container">
         <ul className="menu">
           {
-            Routers.map(r => <li style={getStyles()} key={r.path}><Link to={r.path}>{r.name}</Link></li>)
+            Routers.map(r => <li style={getStyles()} key={r.path.replace('/', '')}><Link to={r.path}>{r.name}</Link></li>)
           }
         </ul>
       </div>
