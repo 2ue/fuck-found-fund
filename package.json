@@ -24,7 +24,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "spider": "node ./spider/index.js"
+    "spider": "node ./spider/index.js",
+    "push": "git add . && git commit -m 'update' && git push",
+    "bp": "npm run build && npm run push"
   },
   "eslintConfig": {
     "extends": "react-app"
