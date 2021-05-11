@@ -21,7 +21,7 @@ export default class Quantify extends React.Component {
   render() {
     return (
       <div className="quantify-container">
-        <p>本期榜单更新：</p>
+        <p>本期榜单更新(20210507)：</p>
         <br></br>
         <table>
           <thead>
