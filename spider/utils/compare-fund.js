@@ -6,23 +6,21 @@
 const importCwd = require('import-cwd');
 const path = require('path');
 const writeFile = require('../fs/write-file');
-// const { fundCodes } = require('../../src/data/fund');
+const utils = require('../utils');
+const config = require('../config');
 
 const DIR = path.join(process.cwd(), 'src/data/quantify');
 
-// module.exports = function(nxt, pre) {
-//     const preData = importCwd(path.join(DIR, '202156.json'));
-//     const nextData = importCwd(path.join(DIR, '20210427.json'));
-//     console.log('preData==>', preData);
-// }
+const { pre = config[0].date, nxt = config[1].date } = utils.getParamsToObj();
 
 // pre nxt
-const preData = importCwd(path.join(DIR, '2021420.json'));
-const nxtData = importCwd(path.join(DIR, '202156.json'));
+const preData = importCwd(path.join(DIR, `${pre}.json`));
+const nxtData = importCwd(path.join(DIR, `${nxt}.json`));
+console.log('preData==>', nxt, nxtData)
 
 // len
-const preData10 = preData.splice(1, 10);
-const nxtData10 = nxtData.splice(1, 10);
+const preData10 = [...preData].splice(1, 10);
+const nxtData10 = [...nxtData].splice(1, 10);
 
 const keepFundList = [];
 
@@ -54,10 +52,12 @@ preData10.forEach(fund => {
 // console.log('lostFundList==>', lostFundList);
 // console.log('newFundList==>', newFundList);
 
-const header = nxtData.splice(0, 1)[0];
+const header = [...nxtData].splice(0, 1)[0];
 const keys = Object.keys(header);
 
 const data = {
+    date: nxt,
+    preDate: pre,
     keys,
     headers: Object.keys(header).map(key => {
         return { key, name: header[key] };

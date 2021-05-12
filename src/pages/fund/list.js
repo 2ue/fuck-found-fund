@@ -1,14 +1,5 @@
 import React from 'react';
-
-function getIncome(income, unit) {
-    if (income > 0) {
-        return <span className="income-rate positive-income">+{income}{unit}</span>;
-    } else if (income < 0) {
-        return <span className="income-rate negative-income">{income}{unit}</span>;
-    } else {
-        return <span className="income-rate">0.00</span>;
-    }
-}
+import { getIncome } from '../../utils';
 
 function FundList(props) {
     const { funds, onlyShowHave, showRate, updateFlag, sortList } = props;

@@ -1,8 +1,19 @@
 
+import React from 'react';
 import * as mathjs from 'mathjs';
 
 export function  count(number, dec = 2) {
     return mathjs.round(number, dec);
+}
+
+export function getIncome(income, unit) {
+    if (income > 0) {
+        return <span className="income-rate positive-income">+{income}{unit}</span>;
+    } else if (income < 0) {
+        return <span className="income-rate negative-income">{income}{unit}</span>;
+    } else {
+        return <span className="income-rate">0.00</span>;
+    }
 }
 
 /**
@@ -16,7 +27,7 @@ export function  count(number, dec = 2) {
      * @returns {Number} CCZSY 持仓收益
      * @returns {Array} list 基金数组
      */
- export function dealFundData(funds = [], refreshTime, fundInvote) {
+ export function dealFundData(funds = [], refreshTime, fundInvote = {}) {
     const obj = {
         ZRQRZSY: 0,
         JRQRZSY: 0,

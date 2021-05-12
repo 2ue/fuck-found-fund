@@ -9,17 +9,22 @@
 
 module.exports = [
     {
-        date: '2021/5/6',
+        date: '2021512',
+        url: 'https://mp.weixin.qq.com/s/0T6JcqarT9XqcBV8uKRf8w',
+        headermap: ['code', 'name', 'income', 'retracement', 'sharpe'],
+    },
+    {
+        date: '202156',
         url: 'https://mp.weixin.qq.com/s/-PRqyBSW0IvtrwvvTKdm4A',
         headermap: ['code', 'name', 'income', 'retracement', 'sharpe'],
     },
     {
-        date: '2021/4/27',
+        date: '2021427',
         url: 'https://mp.weixin.qq.com/s/m3W8lk2AXjekCm3MBLUQHA',
         headermap: ['code', 'name', 'retracement', 'sharpe'],
     },
     {
-        date: '2021/4/20',
+        date: '2021420',
         url: 'https://mp.weixin.qq.com/s/ILRxk8wcfyrsAdyfxbXmPA',
         headermap: ['code', 'name', 'income', 'retracement', 'sharpe'],
     }

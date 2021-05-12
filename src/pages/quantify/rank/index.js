@@ -1,13 +1,13 @@
 import React from 'react';
 import dayjs from 'dayjs';
-import './index.css';
-import { getFundList } from '../../api/eastmoney';
-import compareData from '../../data/quantify/compare.json';
-import { dealFundData, getIncome } from '../../utils';
+import '../index.css';
+import { getFundList } from '../../../api/eastmoney';
+import compareData from '../../../data/quantify/compare.json';
+import { dealFundData, getIncome } from '../../../utils';
+import axios from 'axios';
 
 const {
   date,
-  preDate,
   keys,
   headers,
   keepFundList,
@@ -27,16 +27,16 @@ const getFund = (fundList, code) => {
 
 const getGSZZL = (fundList, code) => {
   const fund = getFund(fundList, code) || {};
-  return <td  key={`GSZZL${code}`}>{ getIncome(fund.GSZZL, '%') }</td>
+  return <td  key="GSSL">{ getIncome(fund.GSZZL, '%') }</td>
 }
 
 const renderTd = (data, fundList) => {
-  return keys.map(key => <td key={`${data[key]}${data.code}`}>{data[key]}</td>).concat([getGSZZL(fundList, data.code)]);
+  return keys.map(key => <td key={data[key]}>{data[key]}</td>).concat([getGSZZL(fundList, data.code)]);
 };
 
 const refreshTime = dayjs().format('YYYY-MM-DD HH:mm:ss');
 
-export default class Quantify extends React.Component {
+export default class QuantifyRank extends React.Component {
 
   constructor(props) {
     super(props);
@@ -54,6 +54,13 @@ export default class Quantify extends React.Component {
   }
 
   componentDidMount() {
+    const { date } = this.props.match.params;
+    axios({
+      url: `../../../data/quantify/${date}.json`,
+      responseType: 'json'
+    }).then(res => {
+      console.log('dd', res);
+    })
     this.getFundListData();
   }
 
@@ -61,7 +68,7 @@ export default class Quantify extends React.Component {
     const { fundList } = this.state;
     return (
       <div className="quantify-container">
-        <p>本期榜单更新({date}与{preDate})：</p>
+        <p>本期榜单更新({date})：</p>
         <br></br>
         <table>
           <thead>
@@ -71,15 +78,15 @@ export default class Quantify extends React.Component {
             </tr>
           </thead>
           <tbody>
-            <tr className="fund-list-title"><td colSpan={keys.length}>本期在榜基金（{date}）</td></tr>
+            <tr className="fund-list-title"><td colSpan={keys.length}>本期在榜基金</td></tr>
             {
               keepFundList.map(f => <tr key={f.code}>{renderTd(f, fundList)}</tr>)
             }
-            <tr className="fund-list-title"><td colSpan={keys.length}>本期落榜基金（{preDate}）</td></tr>
+            <tr className="fund-list-title"><td colSpan={keys.length}>落榜基金</td></tr>
             {
               lostFundList.map(f => <tr key={f.code}>{renderTd(f, fundList)}</tr>)
             }
-            <tr className="fund-list-title"><td colSpan={keys.length}>本期上榜基金（{date}）</td></tr>
+            <tr className="fund-list-title"><td colSpan={keys.length}>上榜基金</td></tr>
             {
               newFundList.map(f => <tr key={f.code}>{renderTd(f, fundList)}</tr>)
             }

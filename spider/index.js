@@ -5,7 +5,13 @@ const writeFile = require('./fs/write-file');
 const utils = require('./utils');
 const config = require('./config');
 
-function getTargetOption(options, index = 0) {
+// const args = process.argv.slice(2);
+
+const i = utils.getParamsToArr[0] || 0;
+
+// console.log('args', args);
+
+function getTargetOption(options, index = i) {
     console.log(options[index]);
     return options[index];
 }
