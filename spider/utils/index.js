@@ -8,7 +8,7 @@ module.exports = {
         return args;
     },
     getParamsToObj() {
-        console.log(this);
+        // console.log(this);
         const arr = this.getParamsToArr();
         const obj = {};
         arr.forEach(a => {

@@ -31,7 +31,10 @@ const getGSZZL = (fundList, code) => {
 }
 
 const renderTd = (data, fundList) => {
-  return keys.map(key => <td key={`${data[key]}${data.code}`}>{data[key]}</td>).concat([getGSZZL(fundList, data.code)]);
+  return keys.map(key => {
+    if (key === 'code') return <td key={`${data[key]}${data.code}`}><a href={`http://fund.eastmoney.com/${data[key]}.html`} target="_blank" rel="noopener noreferrer">{data[key]}</a></td>;
+    return <td key={`${data[key]}${data.code}`}>{data[key]}</td>;
+  }).concat([getGSZZL(fundList, data.code)]);
 };
 
 const refreshTime = dayjs().format('YYYY-MM-DD HH:mm:ss');
