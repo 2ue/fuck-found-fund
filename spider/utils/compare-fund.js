@@ -11,7 +11,7 @@ const config = require('../config');
 
 const DIR = path.join(process.cwd(), 'src/data/quantify');
 
-const { pre = config[0].date, nxt = config[1].date } = utils.getParamsToObj();
+const { pre = config[0].date, nxt = config[1].date, filename } = utils.getParamsToObj();
 
 // pre nxt
 const preData = importCwd(path.join(DIR, `${pre}.json`));
@@ -69,4 +69,5 @@ const data = {
     newFundList
 }
 console.log('compare-fund 开始创建');
-writeFile(JSON.stringify(data, null, '\t'), 'compare.json');
+const name = filename ? `${filename}.json` : 'compare.json';
+writeFile(JSON.stringify(data, null, '\t'), name);

@@ -9,6 +9,11 @@
 
 module.exports = [
     {
+        date: '202163',
+        url: 'https://mp.weixin.qq.com/s/mG8WHe7aLYn-V3IBGyn3qw',
+        headermap: ['code', 'name', 'income', 'retracement', 'sharpe'],
+    },
+    {
         date: '2021528',
         url: 'https://mp.weixin.qq.com/s/RgFMX5TrZTEja0NcwlP_Mw',
         headermap: ['code', 'name', 'income', 'retracement', 'sharpe'],
