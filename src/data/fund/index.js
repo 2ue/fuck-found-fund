@@ -97,11 +97,11 @@ export const fundInvote = {
         FCCCBDJ: 2.7910,
         PLATFORM: 'MYCF'
     },
-    '001837': {
-        FCCFE: 565.83,
-        FCCCBDJ: 2.2595,
-        PLATFORM: 'MYCF'
-    },
+    // '001837': {
+    //     FCCFE: 565.83,
+    //     FCCCBDJ: 2.2595,
+    //     PLATFORM: 'MYCF'
+    // },
     '002656': {
         FCCFE: 10180.90,
         FCCCBDJ: 1.3572,
