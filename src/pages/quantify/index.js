@@ -62,7 +62,7 @@ export default class Quantify extends React.Component {
 
   async getHistoryData() {
     axios({
-      url: `/data/quantify/compare/history.json`,
+      url: `./data/quantify/compare/history.json`,
       responseType: 'json'
     }).then(res => {
       if (res.status === 200) {
@@ -80,7 +80,7 @@ export default class Quantify extends React.Component {
   async getCurrentData() {
     const { date = 'index' } = this.props.match.params;
     axios({
-      url: `/data/quantify/compare/${date}.json`,
+      url: `./data/quantify/compare/${date}.json`,
       responseType: 'json'
     }).then(res => {
       if (res.status === 200) {
