@@ -11,3 +11,11 @@
     font-weight: bold;
     line-height: 50px;
 }
+
+.vs-history {
+    margin-top: 30px;
+}
+
+.vs-history p {
+    margin-bottom: 10px;
+}

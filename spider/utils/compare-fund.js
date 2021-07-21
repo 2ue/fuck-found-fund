@@ -72,4 +72,16 @@ const data = {
 console.log('compare-fund 开始创建');
 const name = filename ? `/compare/${filename}.json` : '/compare/index.json';
 writeFile(JSON.stringify(data, null, '\t'), name);
-writeFile(JSON.stringify({ a: 1 }, null, '\t'), '/compare/history.json');
+
+const readDir = fs.readdirSync(path.join(DIR, 'compare'));
+console.log(readDir);
+const historyData = [];
+readDir.forEach(d => {
+    console.log('d==>', d, /^[\d]*vs[\d]*\.json$/.test(d));
+    if (/^[\d]*vs[\d]*\.json$/.test(d)) {
+        historyData.push(d.replace('.json', ''));
+    }
+});
+
+writeFile(JSON.stringify({ historyData }, null, '\t'), '/compare/history.json');
+
