@@ -9,6 +9,36 @@
 
 module.exports = [
     {
+        date: '2021721',
+        url: 'https://mp.weixin.qq.com/s/exxWvlbOmWhGuGC-liKq1w',
+        headermap: ['code', 'name', 'income', 'sharpe'],
+    },
+    {
+        date: '2021714',
+        url: 'https://mp.weixin.qq.com/s/5Xmd0hDPYdFXt889kN-nMw',
+        headermap: ['code', 'name', 'income', 'retracement', 'sharpe'],
+    },
+    {
+        date: '202175',
+        url: 'https://mp.weixin.qq.com/s/RBdIGk8HczTny1rOGHLGQA',
+        headermap: ['code', 'name', 'income', 'retracement', 'sharpe'],
+    },
+    {
+        date: '2021629',
+        url: 'https://mp.weixin.qq.com/s/7lbuPFQeA-OfzXpcSrr22A',
+        headermap: ['code', 'name', 'income', 'retracement', 'sharpe'],
+    },
+    {
+        date: '2021623',
+        url: 'https://mp.weixin.qq.com/s/5VPUnsACjIkpD087oBoFMw',
+        headermap: ['code', 'name', 'income', 'retracement', 'sharpe'],
+    },
+    {
+        date: '2021616',
+        url: 'https://mp.weixin.qq.com/s/VZl532RVE8ZweKZW8l2fnA',
+        headermap: ['code', 'name', 'income', 'retracement', 'sharpe'],
+    },
+    {
         date: '202163',
         url: 'https://mp.weixin.qq.com/s/mG8WHe7aLYn-V3IBGyn3qw',
         headermap: ['code', 'name', 'income', 'retracement', 'sharpe'],

@@ -4,6 +4,7 @@ import './index.css';
 import { getFundList } from '../../api/eastmoney';
 import compareData from '../../data/quantify/compare.json';
 import { dealFundData, getIncome } from '../../utils';
+import { Link } from 'react-router-dom';
 
 const {
   date,
@@ -65,6 +66,7 @@ export default class Quantify extends React.Component {
     return (
       <div className="quantify-container">
         <p>本期榜单更新({date}与{preDate})：</p>
+        <Link to="/quantify/rank/2021420vs2021721">测试</Link>
         <br></br>
         <table>
           <thead>

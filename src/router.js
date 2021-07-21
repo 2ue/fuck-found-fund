@@ -1,6 +1,6 @@
 import Index from './pages/home/index';
 import Fund from './pages/fund/data';
-import Quantify from './pages/quantify';
+// import Quantify from './pages/quantify';
 import QuantifyRank from './pages/quantify/rank';
 import Mark from './pages/mark';
 
@@ -18,7 +18,7 @@ export default [
   {
     name: '量化策略',
     path: '/quantify',
-    component: Quantify,
+    component: QuantifyRank,
     exact: true,
     children: [
       {

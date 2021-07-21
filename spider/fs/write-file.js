@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const DIR = 'src/data/quantify';
+const DIR = '/public/data/quantify';
 const FILENAME = 'fund.json';
 module.exports = function (data, filename = FILENAME, dir = DIR) {
     const wDir = path.join(process.cwd(), dir);

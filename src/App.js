@@ -2,6 +2,7 @@ import React from 'react';
 import { HashRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 import 'nprogress/nprogress.css';
+import 'antd-mobile/dist/antd-mobile.css';
 import Routers from './router';
 
 const allRouters = [];
