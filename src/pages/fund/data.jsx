@@ -6,6 +6,7 @@ import { getFundList } from '../../api/eastmoney';
 import { fundInvote } from '../../data/fund/index';
 import FundList from './list';
 import { count, dealFundData } from '../../utils';
+import { Toast } from 'antd-mobile';
 
 // 开市时间
 const openMarketTime = `${dayjs().format('YYYY-MM-DD')} 9:00:01`;
@@ -142,7 +143,7 @@ class funDataComponent extends React.Component {
             YGZSZ
         } = this.state.fundData;
         window.consoleInfo();
-        window.alert(`持仓总成本：${CCZCB}<br/>预估总市值：${YGZSZ}`);
+        Toast.info(`持仓总成本：${CCZCB}<br/>预估总市值：${YGZSZ}`);
     }
     
     swtichNumber() {

@@ -1,5 +1,6 @@
 .container {
   position: relative;
+  font-size: 12px;
 }
 
 /* header */
@@ -10,6 +11,7 @@
   left: 0;
   width: 100%;
   border-top: 1px solid #eee;
+  background: #fff;
 }
 .menu li {
   height: 40px;
