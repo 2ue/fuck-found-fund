@@ -56,7 +56,8 @@ export default class Quantify extends React.Component {
     const fundData = await getFundList(codes);
     const data = dealFundData(fundData.Datas, refreshTime);
     this.setState({
-      fundList: data.list
+      fundList: data.list,
+      date: 'index',
     });
   }
 
@@ -77,14 +78,14 @@ export default class Quantify extends React.Component {
     })
   }
 
-  async getCurrentData() {
-    const { date = 'index' } = this.props.match.params;
+  async getCurrentData(date = 'index') {
     axios({
       url: `./data/quantify/compare/${date}.json`,
       responseType: 'json'
     }).then(res => {
       if (res.status === 200) {
         this.setState({
+          date,
           fundVsData: res.data,
         });
         this.getFundListData(res.data);
@@ -98,18 +99,26 @@ export default class Quantify extends React.Component {
   }
 
   componentDidMount() {
-    this.getCurrentData();
+    const { date } = this.props.match.params;
+    this.getCurrentData(date);
     this.getHistoryData();
+  }
+  componentWillReceiveProps(newProps) {
+    const { date } = newProps.match.params;
+    if (!!date && date !== this.state.date) {
+      this.getCurrentData(date);
+      this.getHistoryData();
+    }
   }
 
   render() {
     const { fundList, fundVsData, historyData } = this.state;
     const { date, preDate, keys, headers, keepFundList, lostFundList, newFundList } = fundVsData;
-    console.log('hh==>', fundVsData, historyData);
+    // console.log('hh==>', fundVsData, historyData);
     if (isEmpty(fundVsData)) return <div>loading...</div>;
     return (
       <div className="quantify-container">
-        <p>本期榜单更新({date}与{preDate})：</p>
+        <p>本期榜单更新({preDate}与{date})：</p>
         <br></br>
         <table>
           <thead>
