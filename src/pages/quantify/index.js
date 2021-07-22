@@ -99,7 +99,7 @@ export default class Quantify extends React.Component {
   }
 
   componentDidMount() {
-    const { date } = this.props.match.params;
+    const { date = 'index' } = this.props.match.params;
     this.getCurrentData(date);
     this.getHistoryData();
   }
